@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* --- LIGHT THEME CONTEXT OVERRIDES --- */
+.light {
+  background-color: #f8fafc !important;
+  color: #1e293b !important;
+}
+
+.light .bg-\[\#070B14\],
+.light .bg-\[\#070a13\] {
+  background-color: #f8fafc !important;
+}
+
+.light .bg-slate-900,
+.light .bg-slate-900\/60,
+.light .bg-slate-900\/70,
+.light .bg-slate-900\/80,
+.light .bg-slate-900\/90 {
+  background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05) !important;
+}
+
+.light .bg-slate-950,
+.light .bg-slate-950\/40,
+.light .bg-slate-950\/50,
+.light .bg-slate-950\/60 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.light .border-slate-800,
+.light .border-slate-800\/80,
+.light .border-slate-850 {
+  border-color: #cbd5e1 !important;
+}
+
+.light .text-slate-100,
+.light .text-slate-150,
+.light .text-slate-200,
+.light .text-slate-300 {
+  color: #1e293b !important;
+}
+
+.light .text-slate-400,
+.light .text-slate-450 {
+  color: #475569 !important;
+}
+
+.light .text-slate-500 {
+  color: #64748b !important;
+}
+
+.light .text-white {
+  color: #0f172a !important;
+}
+
+.light .bg-slate-800 {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Active navigation tab highlight */
+.light .bg-slate-800.text-white {
+  background-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Custom button text/background overrides */
+.light .bg-slate-950.text-slate-300 {
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light .bg-slate-950.text-cyan-400 {
+  background-color: #ffffff !important;
+  color: #0891b2 !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light .text-cyan-400,
+.light .text-teal-400 {
+  color: #0d9488 !important;
+}
+
+.light .text-pink-400 {
+  color: #db2777 !important;
+}
+
+.light .text-purple-400 {
+  color: #7c3aed !important;
+}
+
+.light .bg-gradient-to-r.from-slate-800.to-slate-850 {
+  background-image: none !important;
+  background-color: #e2e8f0 !important;
+}
+
+/* Border trims & accents */
+.light .border-teal-500 {
+  border-color: #0d9488 !important;
+}
+
+.light .border-purple-600 {
+  border-color: #7c3aed !important;
+}
+
+.light select, 
+.light select option {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light textarea,
+.light input {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light textarea::placeholder,
+.light input::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Matrix & tool adjustments */
+.light #heros_comparison_matrix {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+.light .bg-slate-900\/70 {
+  background-color: #f1f5f9 !important;
+}
+
+.light .bg-slate-950\/50 {
+  background-color: #f8fafc !important;
+}
+
+.light .bg-teal-950\/60 {
+  background-color: #ccfbf1 !important;
+  color: #0f766e !important;
+  border-color: #99f6e4 !important;
+}
+
+.light .bg-amber-950\/30 {
+  background-color: #fef3c7 !important;
+  border-color: #fde68a !important;
+}
+.light .text-amber-400 {
+  color: #b45309 !important;
+}
+
+.light .bg-emerald-950\/30 {
+  background-color: #d1fae5 !important;
+  border-color: #a7f3d0 !important;
+}
+.light .text-emerald-400 {
+  color: #047857 !important;
+}
+
+.light .bg-slate-950.text-slate-200 {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+
