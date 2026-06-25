@@ -17,8 +17,7 @@ import {
   BookOpen, 
   Sparkles,
   Info,
-  Check,
-  RotateCcw
+  Check
 } from 'lucide-react';
 
 export interface Beat {
@@ -95,7 +94,7 @@ export const HERO_BEATS: Beat[] = [
   }
 ];
 
-const STORY_CHARACTERS: Record<string, string> = {
+export const STORY_CHARACTERS: Record<string, string> = {
   student_essay: "Camp Counselor",
   student_pole_vault: "DIY Pole Vaulter",
   student_tire_mechanic: "Garage Mechanic",
@@ -108,10 +107,13 @@ const STORY_CHARACTERS: Record<string, string> = {
   onward: "Ian Lightfoot",
   spiderman: "Peter Parker",
   legally_blonde: "Elle Woods",
-  to_kill_a_mockingbird: "Scout Finch",
   big_hero_6: "Hiro Hamada",
   luke_skywalker: "Luke Skywalker",
-  rey_skywalker: "Rey Skywalker"
+  rey_skywalker: "Rey Skywalker",
+  up_carl: "Carl Fredricksen",
+  napoleon_dynamite: "Napoleon Dynamite",
+  aladdin: "Aladdin",
+  rudy: "Rudy Ruettiger"
 };
 
 export const FAMILIAR_STORIES: Story[] = [
@@ -120,31 +122,31 @@ export const FAMILIAR_STORIES: Story[] = [
     title: 'Camp Counselor Essay',
     creator: 'Sample Personal Statement',
     type: 'academic',
-    summary: 'A high schooler takes over the Science Shed unexpectedly, shifting from a nervous micromanaging perfectionist to an organic, adaptive educator.',
+    summary: 'A camp counselor unexpectedly takes over the science program, shifting from rigid planning to fostering organic, hands-on discovery.',
     beats: {
       ordinary_world: {
-        text: '• Working a safe, quiet cataloging job in the camp science supply room.\n• Spending hours organizing spreadsheets to avoid dealing with campers.'
+        text: '• Expecting a normal day teaching water sports to forty elementary-aged kids.\n• Debating whether to apply sunscreen under the overcast California sky.'
       },
       inciting_incident: {
-        text: '• The Lead Science Director unexpectedly resigns on Monday morning.\n• Student counselor is suddenly put in charge of twenty active ten-year-olds.'
+        text: '• Finds a Post-it note on the STEM classroom door from the manager: "STEM teacher quit. Just keep them alive!"'
       },
       dont_hesitation: {
-        text: '• Locks himself in the staff bathroom stall out of sheer panic.\n• Convinced he is an imposter who only earned a B in introductory chemistry.'
+        text: '• How to stretch minute-long attention spans for an entire hour?\n• Ambitions for a productive class feel naive when a young camper proudly declares himself exempt from the laws of physics and camp rules.'
       },
       commitment_crossing: {
-        text: '• Steps out of the bathroom stall, wipes his palms, and writes LET’S BREAK THINGS on the blackboard.\n• Metaphorically commits to abandoning his safe, rigid lesson outlines.'
+        text: '• Refused to settle for just keeping the kids alive.\n• Resolved to give them the kind of vibrant, hands-on discovery that defined my own childhood.'
       },
       special_world: {
-        text: '• Managing a wet lake deck under a blazing, exhaustingly hot sun.\n• Failing to control shouting campers on his first try, completely losing group attention.\n• Gradually developing engaging verbal cues, practicing patience, and learning to pivot when the dry classroom lesson plan drops dead in the mud.'
+        text: '• Scavenges the camp kitchen for honey, dish soap, vegetable oil, and a potato.\n• Turns the chaotic lake into an improvised laboratory, using acorns and whiteboards to demonstrate buoyancy.'
       },
       ordeal_climax: {
-        text: '• The primary science demonstration completely collapses.\n• Kids are yelling and his clean paperwork gets soaked with chemical solutions.'
+        text: '• Attempting to build a structured lesson plan while actively wrangling a wobbly fleet of kayaks and dealing with highly distracted, defiant campers.'
       },
       winning_action: {
-        text: '• Throws his pre-planned sheets in the trash.\n• Gathers random cardboard debris and invites the kids to build and sink their own paper craft.'
+        text: '• Remembered "Saturday engineering challenges" with dad, realizing that genuine curiosity is sparked by puzzles and trial-and-error.\n• Implemented a sticker-based point system to gamify questions and tailored daily lessons to observations of the local marsh ecosystem.\n• Arrived early each morning to brainstorm custom whiteboard diagrams based on the previous day\'s questions.'
       },
       transformation_elixir: {
-        text: '• Realizes he is highly resilient and that messy discover-based learning far outlasts lecturing.\n• Uses this hands-on confidence to mentor younger laboratory peers at his high school.'
+        text: '• The campers begin asking unprompted questions and successfully explain the science of invisible UV radiation.\n• The need to hire a replacement science teacher completely disappears.\n• Curiosity is a positive feedback loop: carried forward a new mindset, approaching all complex systems as puzzles to be systematically deconstructed and rebuilt.'
       }
     }
   },
@@ -222,7 +224,7 @@ export const FAMILIAR_STORIES: Story[] = [
     summary: 'An orphan boy discovers he\'s a wizard, enters Hogwarts, and faces dangerous trials to protect his new-found home.',
     beats: {
       ordinary_world: {
-        text: '• Sleeping in the cupboard under the stairs at 4 Privet Drive.\n• Treated as a nuisance and Dudley’s punching bag by his aunt and uncle.'
+        text: '• The cupboard under the stairs at Number 4 Privet Drive.\n• Treated as a nuisance and Dudley’s punching bag by his aunt and uncle.'
       },
       inciting_incident: {
         text: '• A deluge of letters arrives, followed by Hagrid breaking down the door of the Hut-on-the-Rock.\n• Hagrid delivers the shocking news: Yer a wizard, Harry.'
@@ -249,7 +251,7 @@ export const FAMILIAR_STORIES: Story[] = [
   },
   {
     id: 'neville_longbottom',
-    title: 'Neville Longbottom (Series)',
+    title: 'Harry Potter series',
     creator: 'J.K. Rowling',
     type: 'literature',
     summary: 'A clumsy, insecure late-bloomer at wizarding school struggles under expectation, eventually becoming the unyielding leader of the student resistance.',
@@ -315,13 +317,13 @@ export const FAMILIAR_STORIES: Story[] = [
   },
   {
     id: 'lord_of_the_rings_sam',
-    title: 'Lord of the Rings Series',
+    title: 'Lord of the Rings series',
     creator: 'J.R.R. Tolkien',
     type: 'literature',
     summary: 'A simple Shire gardener is pulled into an epic quest and proves that ordinary loyalty can outlast ancient, dark empires.',
     beats: {
       ordinary_world: {
-        text: '• Working as the humble gardener tending the rose gardens of Bag End.\n• Enjoys simple gossip and local agricultural work.'
+        text: '• Works as the humble gardener tending the rose gardens of Bag End.\n• Enjoys simple gossip and local agricultural work.'
       },
       inciting_incident: {
         text: '• Caught eavesdropping under the window by Gandalf.\n• Gandalf pulls him inside and orders him to watch over Frodo.'
@@ -330,13 +332,13 @@ export const FAMILIAR_STORIES: Story[] = [
         text: '• Scared of scary legends, elves, and dark magic.\n• Driven entirely by his unshakeable promise never to leave Frodo’s side.'
       },
       commitment_crossing: {
-        text: '• Pauses at the very border of a cornfield.\n• Takes a physical step past the boundary: If I take one more step, it’ll be the farthest from home I’ve ever been.'
+        text: '• Pauses at the very border of a cornfield: If I take one more step, it’ll be the farthest from home I’ve ever been.\n• Takes the step past the boundary.'
       },
       special_world: {
         text: '• Preparing trail stews, seeing real Elves in the woods.\n• Failing to stop Gollum\'s early manipulation, which nearly breaks his relationship with Frodo.\n• Developing keen wilderness navigation, fighting Orc scouts, and maintaining simple Shire-based hope when food, water, and sight run bone-dry.'
       },
       ordeal_climax: {
-        text: '• Confronting the venomous spider Shelob alone after Frodo gets paralyzed.\n• Believing Frodo is dead and realizing he must carry the heavy Ring alone.'
+        text: '• Confronting the giant spider Shelob alone after Frodo gets paralyzed.\n• Believing Frodo is dead and realizing he must carry the heavy Ring alone.'
       },
       winning_action: {
         text: '• Refuses to yield to physical collapse.\n• Hoists Frodo onto his back up the slopes of Mount Doom and fights off Gollum’s ambush.'
@@ -387,10 +389,10 @@ export const FAMILIAR_STORIES: Story[] = [
     summary: 'A respectable, adventure-averse hobbit leaves his cozy home to help a pack of dwarves reclaim their mountain fortress from a dragon.',
     beats: {
       ordinary_world: {
-        text: '• Bilbo Baggins enjoying pipes on his front porch.\n• Loves pre-planned warm meals, safety, and predictability.'
+        text: '• Enjoys smoking pipeweed on his front porch.\n• Loves pre-planned warm meals, safety, and predictability.'
       },
       inciting_incident: {
-        text: '• Gandalf marks his door with a thief emblem.\n• Brings thirteen energetic dwarves who present a high-risk quest to steal gold from a dragon.'
+        text: '• Gandalf marks his door with a thief emblem.\n• Brings thirteen loud dwarves who present a high-risk quest to steal gold from a dragon.'
       },
       dont_hesitation: {
         text: '• Trembles and flatly refuses to go.\n• Screams at mentions of dragon fire and faints on his living room rug.'
@@ -420,16 +422,16 @@ export const FAMILIAR_STORIES: Story[] = [
     summary: 'Two teenage elf brothers combine modern driving with ancient wizardry on a quest to spend one last day with their late father.',
     beats: {
       ordinary_world: {
-        text: '• Ian Lightfoot living in modern suburban city with zero magic.\n• Struggles with social anxiety and misses his late dad.'
+        text: '• Lives in a modern suburban city with zero magic.\n• Struggles with social anxiety and misses his late dad.'
       },
       inciting_incident: {
-        text: '• Gifting of old wizard staff on his 16th birthday.\n• Spell goes wrong, leaving only his dad’s trousers.'
+        text: '• Receives an old wizard staff on his 16th birthday.\n• Spell goes wrong, regenerating only his dad’s bottom half.'
       },
       dont_hesitation: {
         text: '• Thinks he’s too weak and clumsy to cast real spells.\n• Believes he doesn’t have the magical inner spark.'
       },
       commitment_crossing: {
-        text: '• Grabbing the keys to Barley’s sketchy van.\n• Stepping on the gas to launch a time-sensitive road pursuit for a phoenix gem.'
+        text: '• Grabs the keys to Barley’s sketchy van.\n• Steps on the gas to launch a time-sensitive road pursuit for a phoenix gem.'
       },
       special_world: {
         text: '• Running away from angry pixie biker clubs.\n• Casting a spell to create a bottomless canyon bridge and falling through on early nervous attempts before trusting his brother\'s advice.\n• Learning to shift gears and drive a stick-shift van under extreme freeway pursuit pressure.'
@@ -453,7 +455,7 @@ export const FAMILIAR_STORIES: Story[] = [
     summary: 'A brilliant but awkward high school student gains arachnid abilities and must learn the cost of ignoring his calling.',
     beats: {
       ordinary_world: {
-        text: '• Peter Parker living as an awkward high school outsider.\n• Bullied by classmates and living under Aunt May and Uncle Ben’s rules.'
+        text: '• An awkward high school outsider who\'s good at photography and science.\n• Bullied by classmates and lives under Aunt May and Uncle Ben’s rules.'
       },
       inciting_incident: {
         text: '• Bitten by a glowing genetically-modified spider on school field trip.\n• Wakes up with extreme physical reflexes and ceiling climbing.'
@@ -486,61 +488,28 @@ export const FAMILIAR_STORIES: Story[] = [
     summary: 'A sunny, fashion-obsessed sorority president conquers Harvard Law School to recover her self-respect and conquer stereotypes.',
     beats: {
       ordinary_world: {
-        text: '• Elle Woods living pink-themed life as bubbly sorority president.\n• Major in fashion and expects standard wealthy Malibu marriage.'
+        text: '• Lives a pink-themed life as bubbly sorority president.\n• Majors in fashion and expects a typical, wealthy Malibu marriage.'
       },
       inciting_incident: {
-        text: '• Boyfriend Warner dumps her over dinner.\n• Says she’s too blonde and not serious enough for law school.'
+        text: '• Warner dumps her over dinner.\n• Says she’s too blonde and not serious enough for law school.'
       },
       dont_hesitation: {
-        text: '• Spends days eating chocolate on the couch.\n• Convinced she has to fit into his narrow standard of serious.'
+        text: '• Spends days eating chocolate on the couch.\n• Convinced she has to fit into his narrow standard of \'serious\'.'
       },
       commitment_crossing: {
         text: '• Studies for the LSAT, scores a 179, and gets into Harvard.\n• Steps onto the stuffy, dark-wood campus wearing a bright-pink leather suit.'
       },
       special_world: {
-        text: '• Being humiliated in her first Harvard seminar class and thrown out by the professor.\n• Refusing to go to typical parties; spending weeks memorizing courtroom precedents and outline databases.\n• Improving her analytical skills and earning one of four coveted defense-intern seats.'
+        text: '• Humiliated in her first Harvard seminar class and thrown out by the professor.\n• Refuses to go to typical parties; spends weeks studying intensely.\n• Improves her analytical skills and earns one of four coveted defense-intern seats.'
       },
       ordeal_climax: {
         text: '• Professor Callahan makes inappropriate advances in his office.\n• Shatters her belief that she was hired for her mind.'
       },
       winning_action: {
-        text: '• Refuses to quit, wears a bright-pink litigation dress.\n• Wins the murder trial using her specific knowledge of perm hair care.'
+        text: '• Refuses to quit, wears a bright-pink dress to court.\n• Wins the murder trial using her specific knowledge of perm hair care.'
       },
       transformation_elixir: {
         text: '• Graduates near the top of Harvard Law class.\n• Realizes she doesn’t need to dilute her personality to be brilliant, and uses her status to champion others who don’t fit the mold.'
-      }
-    }
-  },
-  {
-    id: 'to_kill_a_mockingbird',
-    title: 'To Kill a Mockingbird',
-    creator: 'Harper Lee',
-    type: 'literature',
-    summary: 'A young girl in Alabama learns lessons about empathy, racial prejudice, and courage during her father\'s defense of a falsely accused black man.',
-    beats: {
-      ordinary_world: {
-        text: '• Scout Finch playing games in safe, quiet Maycomb sandbox.\n• Fearing local spooky stories like Boo Radley.'
-      },
-      inciting_incident: {
-        text: '• Atticus taking the defense of Tom Robinson.\n• Town flares up with racist rumors and anger.'
-      },
-      dont_hesitation: {
-        text: '• Confused why townsfolk mock her father.\n• Wishes Atticus was a normal, quiet office worker who didn\'t stir tensions.'
-      },
-      commitment_crossing: {
-        text: '• Subverted. Instead of traveling, her commitment is quiet observation.\n• Sneaking into the hot courthouse balcony to watch the complete, raw trial.'
-      },
-      special_world: {
-        text: '• Sitting through hot, grueling courtroom hours, watching adult witnesses lie under oath.\n• Failing to understand why Maycomb\'s jury convicts Tom Robinson despite Atticus\' clear proof of innocence.\n• Developing deep observational emotional intelligence and coping with local schoolyard fights regarding her family\'s choice.'
-      },
-      ordeal_climax: {
-        text: '• Vengeful Bob Ewell attacking them in pitch black woods.\n• Scout trapped inside a heavy ham costume while Jem gets his arm broken.'
-      },
-      winning_action: {
-        text: '• Boo Radley emerges from exile to rescue them.\n• Scout stands with Boo on his front porch, seeing her town from his angle.'
-      },
-      transformation_elixir: {
-        text: '• Gains a deep, mature understanding of human empathy.\n• Learns that real bravery is understanding someone else\'s perspective, which she uses to protect Boo\'s privacy and guide her own moral growth in Maycomb.'
       }
     }
   },
@@ -585,16 +554,16 @@ export const FAMILIAR_STORIES: Story[] = [
     summary: 'A farm boy on a desert planet dreams of adventure, joins a rebellion, and learns to trust the mystical Force to defeat a galactic threat.',
     beats: {
       ordinary_world: {
-        text: '• Staring at the twin suns on the dusty desert world of Tatooine.\n• Trapped in a mundane routine repairing moisture vaporators and living under strict uncle rules.'
+        text: '• Staring at the twin suns on the dusty desert world of Tatooine.\n• Trapped in a mundane routine repairing moisture vaporators and living under uncle Owen\'s strict rules.'
       },
       inciting_incident: {
-        text: '• Purchases two droids (R2-D2 and C-3PO) bearing a hidden message from Princess Leia.\n• R2-D2 escapes, leading him to Ben Kenobi, who reveals his father was a legendary Jedi.'
+        text: '• Sees Leia\'s desparate hologram message to Obi-Wan, projected by R2-D2.\n• R2-D2 escapes, leading him to Ben Kenobi, who reveals his father was a legendary Jedi.'
       },
       dont_hesitation: {
         text: '• Rejects Obi-Wan\'s request to learn the ways of the Force and travel to Alderaan.\n• Flatly objects: "I can\'t get involved. I\'ve got work to do."'
       },
       commitment_crossing: {
-        text: '• Returning to find his home and beloved aunt and uncle destroyed by Imperial stormtroopers.\n• Realizes his old limits are gone forever: "There\'s nothing for me here now. I want to learn the ways of the Force."'
+        text: '• Returning to find his home and beloved aunt and uncle murdered by Imperial stormtroopers.\n• Realizes his old limits are gone forever: "There\'s nothing for me here now. I want to learn the ways of the Force."'
       },
       special_world: {
         text: '• Rescuing Princess Leia, navigating space dogfights, and coping with the shocking loss of his mentor Obi-Wan.\n• Failing on early training: trying to deflect laser-blasts blindfolded while Han Solo laughs at his efforts.\n• Swallowing his farm-boy ego to integrate with experienced rebel pilots at the rebel base.'
@@ -621,7 +590,7 @@ export const FAMILIAR_STORIES: Story[] = [
         text: '• Scraping rust off Imperial wreckages on the desert wasteland of Jakku.\n• Counting the days on her wall, hoarding food portions, and desperately waiting for a family that will never return.'
       },
       inciting_incident: {
-        text: '• Rescues the astromech droid BB-8 from another scavenger.\n• Joins forces with Finn, a rogue stormtrooper, and escapes the planet on a dusty old ship, the Millennium Falcon.'
+        text: '• Rescues BB-8 from another scavenger.\n• Joins forces with Finn and escapes the planet on a dusty old ship, the Millennium Falcon.'
       },
       dont_hesitation: {
         text: '• Experiencing terrifying, chaotic psychic visions upon touching Luke Skywalker\'s old lightsaber.\n• Flees into the dark woods in sheer panic, sobbing that she will never touch the lightsaber again.'
@@ -642,6 +611,138 @@ export const FAMILIAR_STORIES: Story[] = [
         text: '• Retires to Tatooine, buries Luke and Leia\'s lightsabers, and ignites her own yellow lightsaber.\n• Chooses her own name, "Rey Skywalker," rejecting her inheritance of dark power to define her own family and legacy.'
       }
     }
+  },
+  {
+    id: 'up_carl',
+    title: 'Up',
+    creator: 'Pixar / Pete Docter',
+    type: 'film',
+    summary: 'A grumpy widower fights to keep his home and his late wife\'s memory, but realizes true adventure lies in new relationships.',
+    beats: {
+      ordinary_world: {
+        text: '• Lives alone in his small, outdated house, surrounded by modern skyscrapers.\n• Clings stubbornly to his daily routine and his physical possessions to honor his late wife, Ellie.'
+      },
+      inciting_incident: {
+        text: '• A construction worker damages his mailbox, and Carl strikes him with his cane.\n• This results in a court order forcing him into a retirement home and the forfeiture of his property.'
+      },
+      dont_hesitation: {
+        text: '• Sits in his darkened living room holding Ellie\'s adventure book.\n• He feels defeated, believing he has permanently failed his lifelong promise to take her to Paradise Falls.'
+      },
+      commitment_crossing: {
+        text: '• Instead of surrendering to the retirement home van, he releases thousands of helium balloons.\n• Turns his house into an airship to fly to South America.'
+      },
+      special_world: {
+        text: '• Navigating a flying house through a massive thunderstorm. Discovering an accidental stowaway, Russell.\n• Landing in South America and physically dragging the heavy, hovering house across a rocky landscape.\n• Encountering unexpected allies like a giant bird named Kevin and a talking dog named Dug.'
+      },
+      ordeal_climax: {
+        text: '• Charles Muntz captures Kevin and sets Carl\'s house on fire.\n• Forced to choose between saving Ellie\'s house and saving his new friends, Carl frantically extinguishes the fire, abandoning Kevin.\n• He successfully drags the house to the edge of Paradise Falls, but the victory feels entirely hollow.'
+      },
+      winning_action: {
+        text: '• Carl physically throws his cherished, heavy antique furniture out the door to make the house light enough to fly again.\n• He actively chooses to rescue Russell and Kevin, leaving the physical memory of Ellie behind to save his new family.'
+      },
+      transformation_elixir: {
+        text: '• Discovers that true adventure isn\'t a geographical destination, but the relationships built along the way.\n• Returns to the city to act as a surrogate grandfather for Russell, pins Ellie\'s grape soda badge onto his sash, and fully re-engages with the present world.'
+      }
+    }
+  },
+  {
+    id: 'napoleon_dynamite',
+    title: 'Napoleon Dynamite',
+    creator: 'Jared Hess',
+    type: 'film',
+    summary: 'An awkward, highly unpopular high school outcast risks further humiliation to help his new friend run for class president.',
+    beats: {
+      ordinary_world: {
+        text: '• An awkward, highly unpopular high school outcast in rural Idaho.\n• Spends his time drawing ligers, playing tetherball by himself, and fabricating stories about hunting wolverines.'
+      },
+      inciting_incident: {
+        text: '• A quiet, new student named Pedro transfers to the school.\n• Napoleon is assigned to show him around, and Pedro soon decides to run for class president against the deeply entrenched, popular Summer Wheatley.'
+      },
+      dont_hesitation: {
+        text: '• Napoleon possesses zero social capital and lacks the standard popularity metrics required to run a campaign.\n• He struggles to build a competitive strategy against Summer\'s polished, well-funded efforts.'
+      },
+      commitment_crossing: {
+        text: '• Pledges his absolute loyalty to his new friend. He puts on the "Vote for Pedro" t-shirt and begins actively campaigning in the hallways.'
+      },
+      special_world: {
+        text: '• Attempting to hand out homemade flyers, getting shoved into lockers, and learning sign language to sing with the Happy Hands Club.\n• He takes a risk by asking Trisha to the school dance and buys a dated thrift-store suit to build a more confident persona.'
+      },
+      ordeal_climax: {
+        text: '• The final election assembly. Pedro delivers a quiet, depressing speech to an unresponsive crowd.\n• The principal announces that each candidate must present a skit. Pedro has prepared nothing, and his campaign faces a humiliating, public defeat.'
+      },
+      winning_action: {
+        text: '• Napoleon hands his cassette tape to the sound engineer, walks onto the stage alone.\n• Performs a fiercely uninhibited, perfectly executed dance routine in front of the entire student body.'
+      },
+      transformation_elixir: {
+        text: '• Discovers that his eccentricities are an asset rather than a liability.\n• He returns to the playground to play tetherball with Deb, completely secure in his unique identity, his quirks, and his friendships.'
+      }
+    }
+  },
+  {
+    id: 'aladdin',
+    title: 'Aladdin',
+    creator: 'Ron Clements & John Musker',
+    type: 'film',
+    summary: 'A homeless thief finds a magical lamp and transforms into a prince to win a princess, but learns that his true worth comes from his character.',
+    beats: {
+      ordinary_world: {
+        text: '• Homeless "street rat", stealing bread to survive, dodging royal guards, and dreaming of a life inside the palace where he is seen as more than a worthless thief.'
+      },
+      inciting_incident: {
+        text: '• Rescues Jasmine in the marketplace. Forms a genuine connection with her, only discovering she’s the princess suddenly arrested.'
+      },
+      dont_hesitation: {
+        text: '• Trapped in the palace dungeon, he feels entirely inadequate. He believes his poverty makes him fundamentally unworthy of the princess and that he has no future.'
+      },
+      commitment_crossing: {
+        text: '• Enters the Cave of Wonders in search of the lamp.'
+      },
+      special_world: {
+        text: '• Finds the lamp and Genie. Transforms into "Prince Ali."\n• Navigates the royal court, constantly lying to cover up his past, and battles massive impostor syndrome as he tries to maintain the illusion.'
+      },
+      ordeal_climax: {
+        text: '• Jafar steals the lamp, exposes Aladdin as a fraud to the entire kingdom, strips away his princely facade, and banishes him to a frozen wasteland to die.'
+      },
+      winning_action: {
+        text: '• Stripped of his magical advantage, Aladdin realizes his quick-witted street smarts are his actual strength. He recognizes that Jafar\'s thirst for power is a critical vulnerability.\n• Returns to Agrabah to face the vastly more powerful sorcerer.\n• Goads Jafar into wishing to become an all-powerful genie, trapping Jafar by the cosmic shackles of his new lamp.'
+      },
+      transformation_elixir: {
+        text: '• Discovers that his true worth comes from his integrity, not his status or his wealth.\n• Uses his final wish to grant the Genie his freedom rather than making himself a prince, proving his noble character and earning the right to marry Jasmine exactly as he is.'
+      }
+    }
+  },
+  {
+    id: 'rudy',
+    title: 'Rudy',
+    creator: 'David Anspaugh',
+    type: 'film',
+    summary: 'A small-town steel mill worker with poor grades overcomes immense physical and academic limitations to play football for Notre Dame.',
+    beats: {
+      ordinary_world: {
+        text: '• Living in a working-class steel mill town. Small in stature and struggling with poor grades.\n• Expected to abandon his lifelong dream of playing football for Notre Dame and work in the local mill like his father and brothers.'
+      },
+      inciting_incident: {
+        text: '• His best friend and only supporter, Pete, is tragically killed in an explosion at the steel mill.'
+      },
+      dont_hesitation: {
+        text: '• Overwhelmed by grief and the chorus of voices (family, teachers, and his girlfriend) telling him he is too small and not smart enough.\n• Fears his dream really is a foolish delusion.'
+      },
+      commitment_crossing: {
+        text: '• Refuses to settle for a life of regret.\n• He packs a bag, leaves his hometown, and boards a bus to South Bend, enrolling in a nearby junior college to fight his way into Notre Dame.'
+      },
+      special_world: {
+        text: '• Battling severe dyslexia with a tutor to raise his grades. Taking a grueling job as a stadium groundskeeper to be near the field.\n• Enduring brutal, daily physical beatings as a tackling dummy on the Notre Dame practice squad while continuously failing to make the dress roster for actual games.'
+      },
+      ordeal_climax: {
+        text: '• Approaching the final home game of his senior year. The new head coach refuses to put him on the dress list, breaking a previous coach\'s promise.\n• Utterly broken and feeling his years of sacrifice were for nothing, Rudy finally gives up and quits the team.'
+      },
+      winning_action: {
+        text: '• Confronted by the head groundskeeper, Fortune, who shares his own lifelong regret of quitting the team, Rudy realizes true failure is giving up on his own commitment.\n• Swallows his pride and returns to the practice field, absorbing brutal hits to prepare the starting defense.\n• Inspired by his dedication, the senior players demand Rudy dress in their place. He is put into the final play and successfully sacks the opposing quarterback.'
+      },
+      transformation_elixir: {
+        text: '• Carried off the field by his teammates, he realizes the journey wasn\'t about getting revenge on his detractors, but proving to himself that relentless perseverance can overcome any physical limitation.\n• Earns his degree from Notre Dame and his family\'s deep respect.'
+      }
+    }
   }
 ];
 
@@ -652,7 +753,6 @@ export default function HerosJourneyCompare() {
     'neville_longbottom',
     'lord_of_the_rings_frodo'
   ]);
-  const [activeCategory, setActiveCategory] = useState<'all' | 'academic' | 'film' | 'literature'>('all');
 
   const toggleStory = (storyId: string) => {
     if (selectedStoryIds.includes(storyId)) {
@@ -664,38 +764,8 @@ export default function HerosJourneyCompare() {
     }
   };
 
-  const applyPreset = (type: 'all' | 'disney' | 'books' | 'reset' | 'clear' | 'lotr') => {
-    switch (type) {
-      case 'all':
-        setSelectedStoryIds(FAMILIAR_STORIES.map(s => s.id));
-        break;
-      case 'disney':
-        const disneyIds = FAMILIAR_STORIES.filter(s => s.type === 'film').map(s => s.id);
-        setSelectedStoryIds(disneyIds);
-        break;
-      case 'books':
-        const bookIds = FAMILIAR_STORIES.filter(s => s.type === 'literature' && !s.id.startsWith('lord_of_the_rings_') && s.id !== 'the_hobbit').map(s => s.id);
-        setSelectedStoryIds(bookIds);
-        break;
-      case 'lotr':
-        setSelectedStoryIds(['lord_of_the_rings_frodo', 'lord_of_the_rings_sam', 'lord_of_the_rings_aragorn', 'the_hobbit']);
-        break;
-      case 'reset':
-        setSelectedStoryIds(['student_essay', 'harry_potter', 'neville_longbottom', 'lord_of_the_rings_frodo']);
-        break;
-      case 'clear':
-        setSelectedStoryIds(['student_essay']); // Always keep at least the student essay to keep structure
-        break;
-    }
-  };
-
-  const filteredSelectionList = FAMILIAR_STORIES.filter(s => {
-    if (activeCategory === 'all') return true;
-    return s.type === activeCategory;
-  });
-
   return (
-    <div id="heros_comparison_matrix" className="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 space-y-8 shadow-xl shadow-slate-950/30">
+    <div id="heros_comparison_matrix" className="bg-slate-950 border border-slate-850 rounded-2xl p-6 md:p-8 space-y-8 shadow-lg shadow-slate-950/20">
       {/* Intro Header */}
       <div className="border-b border-slate-800 pb-5">
         <div className="flex items-center gap-2">
@@ -714,93 +784,13 @@ export default function HerosJourneyCompare() {
 
       {/* Controller Area */}
       <div className="space-y-4" id="matrix_controls">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <label className="text-xs font-sans font-bold text-slate-300 tracking-wide block">
-            Select Stories to Stand Side-by-Side (Scroll horizontally to view all):
-          </label>
-          
-          {/* Quick Preset Buttons */}
-          <div className="flex flex-wrap gap-2">
-            <button
-              onClick={() => applyPreset('disney')}
-              className="px-2.5 py-1 text-[10px] font-sans font-bold bg-slate-950 border border-slate-800 text-purple-400 hover:bg-slate-850 hover:border-purple-900/60 transition-all rounded-md cursor-pointer"
-            >
-              🎬 Cinema Presets
-            </button>
-            <button
-              onClick={() => applyPreset('books')}
-              className="px-2.5 py-1 text-[10px] font-sans font-bold bg-slate-950 border border-slate-800 text-pink-400 hover:bg-slate-850 hover:border-pink-900/60 transition-all rounded-md cursor-pointer"
-            >
-              📚 Classic Books
-            </button>
-            <button
-              onClick={() => applyPreset('lotr')}
-              className="px-2.5 py-1 text-[10px] font-sans font-bold bg-slate-950 border border-slate-800 text-cyan-400 hover:bg-slate-850 hover:border-cyan-900/65 transition-all rounded-md cursor-pointer"
-            >
-              💍 Tolkien Perspectives
-            </button>
-            <button
-              onClick={() => applyPreset('all')}
-              className="px-2.5 py-1 text-[10px] font-sans font-bold bg-slate-950 border border-slate-800 text-teal-400 hover:bg-slate-850 transition-all rounded-md cursor-pointer"
-            >
-              ✨ Show All {FAMILIAR_STORIES.length}
-            </button>
-            <button
-              onClick={() => applyPreset('reset')}
-              className="px-2.5 py-1 text-[10px] font-sans font-bold bg-slate-900 border border-slate-800 text-slate-300 hover:bg-slate-850 transition-all rounded-md cursor-pointer flex items-center gap-1"
-            >
-              <RotateCcw className="w-3.5 h-3.5 shrink-0" /> Reset Default
-            </button>
-          </div>
-        </div>
-
-        {/* Tab Filters for Selector Buttons */}
-        <div className="flex p-0.5 bg-slate-950 rounded-lg gap-0.5 border border-slate-800 max-w-md" id="story_type_tab_container">
-          <button
-            onClick={() => setActiveCategory('all')}
-            className={`flex-1 py-1.5 text-[10px] font-sans font-bold rounded-md transition-all cursor-pointer text-center ${
-              activeCategory === 'all'
-                ? 'bg-slate-850 text-teal-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-100'
-            }`}
-          >
-            All ({FAMILIAR_STORIES.length})
-          </button>
-          <button
-            onClick={() => setActiveCategory('academic')}
-            className={`flex-1 py-1.5 text-[10px] font-sans font-bold rounded-md transition-all cursor-pointer text-center ${
-              activeCategory === 'academic'
-                ? 'bg-slate-850 text-teal-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-100'
-            }`}
-          >
-            Academic ({FAMILIAR_STORIES.filter(s => s.type === 'academic').length})
-          </button>
-          <button
-            onClick={() => setActiveCategory('film')}
-            className={`flex-1 py-1.5 text-[10px] font-sans font-bold rounded-md transition-all cursor-pointer text-center ${
-              activeCategory === 'film'
-                ? 'bg-slate-850 text-teal-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-100'
-            }`}
-          >
-            Cinema ({FAMILIAR_STORIES.filter(s => s.type === 'film').length})
-          </button>
-          <button
-            onClick={() => setActiveCategory('literature')}
-            className={`flex-1 py-1.5 text-[10px] font-sans font-bold rounded-md transition-all cursor-pointer text-center ${
-              activeCategory === 'literature'
-                ? 'bg-slate-850 text-teal-400 border border-slate-700 shadow'
-                : 'text-slate-400 hover:text-slate-100'
-            }`}
-          >
-            Literature ({FAMILIAR_STORIES.filter(s => s.type === 'literature').length})
-          </button>
-        </div>
+        <label className="text-xs font-sans font-bold text-slate-300 tracking-wide block">
+          Select Stories to Stand Side-by-Side (Scroll horizontally to view all):
+        </label>
 
         {/* Dynamic Selector Buttons */}
-        <div className="flex flex-wrap gap-2 max-h-[160px] overflow-y-auto p-1 bg-slate-950/40 rounded-xl border border-slate-850" id="comparison_story_selector">
-          {filteredSelectionList.map((story) => {
+        <div className="flex flex-wrap gap-2 max-h-[160px] overflow-y-auto p-1.5 bg-slate-950/40 rounded-xl border border-slate-850" id="comparison_story_selector">
+          {FAMILIAR_STORIES.map((story) => {
             const isSelected = selectedStoryIds.includes(story.id);
 
             return (
@@ -808,25 +798,21 @@ export default function HerosJourneyCompare() {
                 key={story.id}
                 id={`compare_toggle_${story.id}`}
                 onClick={() => toggleStory(story.id)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-sans font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
+                className={`px-3.5 py-2 rounded-lg text-sm font-sans font-semibold border transition-all cursor-pointer flex items-center gap-1.5 ${
                   isSelected
                     ? story.type === 'academic'
-                      ? 'bg-teal-950/40 border-teal-500 text-teal-350 shadow shadow-teal-500/10'
-                      : story.type === 'literature'
-                        ? 'bg-pink-950/40 border-pink-500 text-pink-350 shadow shadow-pink-500/10'
-                        : 'bg-purple-950/40 border-purple-500 text-purple-350 shadow shadow-purple-500/10'
-                    : 'bg-slate-950 border-slate-850 text-slate-400 hover:bg-slate-850 hover:border-slate-750 hover:text-slate-200'
+                      ? 'bg-amber-950/40 border-amber-500 text-amber-100 shadow shadow-amber-500/10'
+                      : 'bg-blue-950/40 border-blue-500 text-white shadow shadow-blue-500/10'
+                    : story.type === 'academic'
+                      ? 'bg-amber-950/10 border-amber-900/30 text-amber-500/80 hover:bg-amber-950/30 hover:border-amber-700/50 hover:text-amber-300'
+                      : 'bg-blue-950/10 border-blue-900/30 text-blue-400/70 hover:bg-blue-950/30 hover:border-blue-800/50 hover:text-blue-300'
                 }`}
               >
-                <span>
-                  {story.type === 'academic' ? '🎓' : story.type === 'literature' ? '📚' : '🎬'}
-                </span>
                 <span className="font-bold">{STORY_CHARACTERS[story.id] || story.title}</span>
-                <span className="text-[9px] font-normal opacity-60">({story.title})</span>
                 {isSelected ? (
-                  <Check className="w-3.5 h-3.5 text-teal-400 shrink-0" />
+                  <Check className="w-3.5 h-3.5 shrink-0" />
                 ) : (
-                  <Plus className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                  <Plus className="w-3.5 h-3.5 opacity-60 shrink-0" />
                 )}
               </button>
             );
@@ -840,7 +826,7 @@ export default function HerosJourneyCompare() {
           <thead>
             <tr className="border-b border-slate-800 bg-slate-900/60 divide-x divide-slate-850">
               {/* Beats Header - STICKY */}
-              <th className="p-4 w-[240px] min-w-[240px] text-xs font-sans font-bold text-slate-350 uppercase tracking-wider bg-slate-900 sticky left-0 z-20 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.5)] border-r border-slate-800">
+              <th className="p-4 w-[210px] min-w-[210px] align-top text-sm font-sans font-bold text-slate-400 uppercase tracking-wider bg-slate-900 sticky left-0 z-20 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.5)] border-r border-slate-800">
                 Hero's Journey Beat
               </th>
               {/* Dynamic story headers */}
@@ -848,14 +834,11 @@ export default function HerosJourneyCompare() {
                 const story = FAMILIAR_STORIES.find(s => s.id === storyId);
                 if (!story) return null;
                 return (
-                  <th key={story.id} className="p-4 w-[300px] min-w-[300px] text-xs font-sans font-bold text-white uppercase tracking-wider bg-slate-950/60 font-mono">
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-base">
-                        {story.type === 'academic' ? '🎓' : story.type === 'literature' ? '📚' : '🎬'}
-                      </span>
-                      <div>
-                        <div className="text-white font-bold tracking-tight">{STORY_CHARACTERS[story.id] || story.title}</div>
-                        <div className="text-[10px] text-slate-400 font-normal mt-0.5 italic lowercase">({story.title})</div>
+                  <th key={story.id} className={`p-4 w-[280px] min-w-[280px] text-sm font-sans uppercase tracking-wider bg-slate-950/60 transition-colors ${story.type === 'academic' ? 'border-t-2 border-t-amber-500' : 'border-t-2 border-t-blue-500'}`}>
+                    <div className="flex flex-col gap-1">
+                      <div className="text-white font-bold tracking-tight text-base font-sans">{STORY_CHARACTERS[story.id] || story.title}</div>
+                      <div className={`text-xs uppercase font-bold tracking-widest ${story.type === 'academic' ? 'text-amber-500' : 'text-blue-400'}`}>
+                        {story.type === 'academic' ? 'Example' : story.title}
                       </div>
                     </div>
                   </th>
@@ -869,13 +852,13 @@ export default function HerosJourneyCompare() {
               return (
                 <tr key={beat.id} className="divide-x divide-slate-850 hover:bg-slate-900/10 transition-colors">
                   {/* Beat descriptor column - STICKY */}
-                  <td className="p-4 bg-slate-900/95 sticky left-0 z-10 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.5)] border-r border-slate-800" id={`beat_row_header_${beat.id}`}>
-                    <div className="space-y-1 bg-transparent">
-                      <div className="flex items-center gap-1.5 text-xs font-sans font-bold text-teal-400">
-                        <IconComp className="w-3.5 h-3.5 shrink-0 text-teal-400" />
+                  <td className="p-4 align-top bg-slate-900/95 sticky left-0 z-10 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.5)] border-r border-slate-800" id={`beat_row_header_${beat.id}`}>
+                    <div className="space-y-1.5 bg-transparent">
+                      <div className="flex items-center gap-1.5 text-sm font-sans font-bold text-teal-400">
+                        <IconComp className="w-4 h-4 shrink-0 text-teal-400" />
                         <span>{beat.name}</span>
                       </div>
-                      <p className="text-[10px] text-slate-400 leading-snug font-sans">
+                      <p className="text-sm text-slate-400 leading-snug font-sans">
                         {beat.description}
                       </p>
                     </div>
@@ -889,7 +872,7 @@ export default function HerosJourneyCompare() {
 
                     if (!detail) {
                       return (
-                        <td key={storyId} className="p-4 text-xs font-sans text-slate-500 italic bg-slate-950/20 align-top">
+                        <td key={storyId} className="p-4 text-sm font-sans text-slate-500 italic bg-slate-950/20 align-top">
                           Beat Skipped / N/A
                         </td>
                       );
@@ -899,19 +882,19 @@ export default function HerosJourneyCompare() {
                     const listItems = detail.text.split('\n');
 
                     return (
-                      <td key={storyId} className="p-4 text-[11.5px] font-sans leading-relaxed text-slate-300 align-top bg-slate-950/40">
+                      <td key={storyId} className="p-4 text-sm font-sans leading-relaxed text-slate-300 align-top bg-slate-950/40">
                         {detail.isSubverted ? (
-                          <div className="space-y-1.5 bg-transparent">
-                            <span className="inline-block px-1.5 py-0.5 text-[8px] font-sans font-bold bg-pink-950/80 border border-pink-900/60 text-pink-400 rounded">
+                          <div className="space-y-2 bg-transparent">
+                            <span className="inline-block px-2 py-1 text-xs font-sans font-bold bg-emerald-950/80 border border-emerald-900/60 text-emerald-400 rounded uppercase tracking-wider">
                               Subverted / Altered
                             </span>
                             <div className="space-y-1 font-sans">
                               {listItems.map((item, idx) => (
-                                <p key={idx} className="text-slate-300">{item}</p>
+                                <p key={idx} className="text-slate-200">{item}</p>
                               ))}
                             </div>
                             {detail.subversionNote && (
-                              <p className="text-[9.5px] font-sans text-slate-500 leading-snug">
+                              <p className="text-sm font-sans text-slate-400 leading-snug">
                                 💡 {detail.subversionNote}
                               </p>
                             )}
@@ -919,7 +902,7 @@ export default function HerosJourneyCompare() {
                         ) : (
                           <div className="space-y-1 font-sans">
                             {listItems.map((item, idx) => (
-                              <p key={idx}>{item}</p>
+                              <p key={idx} className="text-slate-200">{item}</p>
                             ))}
                           </div>
                         )}
@@ -936,9 +919,9 @@ export default function HerosJourneyCompare() {
       {/* Subversion pedagogical tip */}
       <div className="bg-slate-950 border border-slate-850 p-4 rounded-xl flex items-start gap-3" id="matrix_subversion_tip">
         <Info className="w-5 h-5 text-teal-400 shrink-0 mt-0.5" />
-        <div className="space-y-1 text-xs">
-          <h4 className="font-sans font-bold text-slate-100">Pro-Tip for Drafting beats: Use Raw Bullet Points!</h4>
-          <p className="text-slate-400 font-sans leading-relaxed text-[11px]">
+        <div className="space-y-1.5">
+          <h4 className="font-sans font-bold text-slate-100 text-sm">Pro-Tip for Drafting beats: Use Raw Bullet Points!</h4>
+          <p className="text-slate-400 font-sans leading-relaxed text-sm">
             Notice how simple and raw these beats are? To plot your own journey, don't worry about polished prose yet. Focus on naming the <span className="text-teal-400 font-semibold">raw actions</span> and choices—the exact moment the phone rang, your progressive commitments, physical actions like riding a broom, or the simple realization you brought back to help friends. Once the structure holds, the writing follows naturally!
           </p>
         </div>

@@ -12,7 +12,8 @@ export interface PromptField {
   placeholder: string;
   tip?: string;
   pitfallWarning?: string;
-  suggestedWeight: number; // percentage of essay wordcount (e.g. 0.15 = 15%)
+  suggestedWeight?: number; // percentage of essay wordcount (e.g. 0.15 = 15%)
+  tools?: ('montage' | 'bullet_time')[];
   examples?: {
     title: string;
     text: string;
@@ -24,12 +25,12 @@ export interface EssayDraft {
   title: string;
   targetWordCount: number;
   track: TrackType;
-  // Hero's Journey prompts state
   herosJourneyAnswers: Record<string, string>;
-  // Different but Truthful prompts state
   differentTruthfulAnswers: Record<string, string>;
-  // Intellectual Journey prompts state
   intellectualJourneyAnswers: Record<string, string>;
+  blocks?: { type: string; orderIndex: number; content: string }[];
+  montageElements?: { era: string; theme: string; collegePromise: string }[];
+  scratchpad?: string;
   createdAt: string;
   updatedAt: string;
 }

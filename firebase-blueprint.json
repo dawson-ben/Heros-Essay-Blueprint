@@ -1,0 +1,37 @@
+{
+  "entities": {
+    "Essay": {
+      "title": "Essay Draft",
+      "description": "A student's essay draft and its structural blocks.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "targetWordCount": { "type": "number", "description": "Global word count target" },
+        "track": { "type": "string", "enum": ["heros_journey", "different_but_truthful", "intellectual_journey"] },
+        "herosJourneyAnswers": { "type": "object" },
+        "differentTruthfulAnswers": { "type": "object" },
+        "intellectualJourneyAnswers": { "type": "object" },
+        "blocks": {
+          "type": "array",
+          "description": "Array of blocks"
+        },
+        "montageElements": {
+          "type": "array",
+          "description": "Array of montage elements"
+        },
+        "scratchpad": { "type": "string" },
+        "schemaVersion": { "type": "number" },
+        "createdAt": { "type": "timestamp" },
+        "updatedAt": { "type": "timestamp" }
+      },
+      "required": ["userId", "title", "createdAt", "updatedAt", "schemaVersion"]
+    }
+  },
+  "firestore": {
+    "users/{userId}/essays/{essayId}": {
+      "schema": { "$ref": "#/entities/Essay" },
+      "description": "Stores user drafts."
+    }
+  }
+}

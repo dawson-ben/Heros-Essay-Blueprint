@@ -6,24 +6,38 @@
 import React, { useState } from 'react';
 import { EssayDraft, PromptField, TrackType } from '../types';
 import { HEROS_JOURNEY_PROMPTS, DIFFERENT_BUT_TRUTHFUL_PROMPTS, INTELLECTUAL_JOURNEY_PROMPTS } from '../constants';
-import { Sparkles, HelpCircle, Save, Trash2, ArrowRight, BookOpen, AlertTriangle, PlayCircle, PlusCircle, CheckCircle } from 'lucide-react';
-import HerosJourneyCompare from './HerosJourneyCompare';
+import { FAMILIAR_STORIES } from './HerosJourneyCompare';
+import { Film, Sparkles, ChevronUp, ChevronDown } from 'lucide-react';
+import MontageTool from './MontageTool';
+import ZoomLensTool from './ZoomLensTool';
 
 interface WorkbookProps {
   activeDraft: EssayDraft;
   onUpdateDraft: (updatedDraft: EssayDraft) => void;
   onDeleteDraft: (id: string) => void;
-  onCloneSample: (sampleType: 'camp' | 'coding' | 'baking' | 'philosophy') => void;
 }
 
 export default function Workbook({ 
   activeDraft, 
   onUpdateDraft, 
-  onDeleteDraft,
-  onCloneSample
+  onDeleteDraft
 }: WorkbookProps) {
   const [activeTabGroup, setActiveTabGroup] = useState<string>('heart'); // heros journey sections
   const [focusedFieldId, setFocusedFieldId] = useState<string | null>(null);
+  const [selectedReferenceIds, setSelectedReferenceIds] = useState<string[]>([]);
+  const [activeToolFieldId, setActiveToolFieldId] = useState<string | null>(null);
+
+  const PROMPT_TO_BEATS_MAP: Record<string, string[]> = {
+    'ordinary_world': ['ordinary_world'],
+    'unfamiliar_world': ['special_world'],
+    'inciting_incident': ['inciting_incident'],
+    'hesitation_doubt': ['dont_hesitation'],
+    'crossing_threshold': ['commitment_crossing'],
+    'the_ordeal_flat': ['ordeal_climax'],
+    'winning_action': ['winning_action'],
+    'magic_elixir': ['transformation_elixir'],
+    'essential_belief': ['transformation_elixir'],
+  };
 
   const prompts = activeDraft.track === 'heros_journey'
     ? HEROS_JOURNEY_PROMPTS
@@ -95,9 +109,9 @@ export default function Workbook({
 
   // Group Hero's Journey questions for easier navigation
   const herosJourneyGroups = [
-    { id: 'heart', label: 'Phase 1A: The Heart', ids: ['story_selection', 'transformation_formula', 'essential_belief', 'magic_elixir'] },
-    { id: 'spine', label: 'Phase 1B: The Spine', ids: ['stakes_risk', 'the_ordeal_flat', 'winning_action', 'ordinary_vs_special'] },
-    { id: 'arc', label: 'Phase 2: The Arc', ids: ['inciting_incident', 'hesitation_doubt', 'crossing_threshold'] }
+    { id: 'heart', label: 'Phase 1: The Heart', ids: ['story_selection', 'transformation_formula', 'essential_belief', 'magic_elixir'] },
+    { id: 'setup', label: 'Phase 2: The Setup', ids: ['ordinary_vs_special', 'inciting_incident', 'hesitation_doubt', 'crossing_threshold'] },
+    { id: 'climax', label: 'Phase 3: The Climax', ids: ['stakes_risk', 'the_ordeal_flat', 'the_catalyst', 'winning_action', 'the_payoff'] }
   ];
 
   const currentGroupFields = activeDraft.track === 'heros_journey'
@@ -111,7 +125,7 @@ export default function Workbook({
     <div className="space-y-12">
       <div id="workbook_root" className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Sidebar Controls: Track Selector & Saved Drafts */}
-        <div className="lg:col-span-4 space-y-6">
+        <div className="lg:col-span-3 space-y-6">
         {/* Track Config */}
         <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 shadow-lg shadow-slate-950/20" id="track_customizer">
           <h3 className="font-sans font-bold text-sm text-slate-100 border-b border-slate-800 pb-2">
@@ -120,7 +134,7 @@ export default function Workbook({
           
           {/* Title Input */}
           <div className="space-y-1">
-            <label className="text-[11px] font-sans font-bold text-slate-400">Reflection Title</label>
+            <label className="text-xs font-sans font-bold text-slate-400">Reflection Title</label>
             <input
               id="draft_title_input"
               type="text"
@@ -132,7 +146,7 @@ export default function Workbook({
 
           {/* Track toggles */}
           <div className="space-y-2">
-            <label className="text-[11px] font-sans font-bold text-slate-400 block font-semibold">Framework Methodology</label>
+            <label className="text-xs font-sans font-bold text-slate-400 block font-semibold">Framework Methodology</label>
             <div className="flex flex-col gap-1.5" id="framework_method_toggle">
               <button
                 id="select_track_heros"
@@ -143,32 +157,32 @@ export default function Workbook({
                     : 'bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-900 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                🦸 Hero's Journey (Story-Heavy)
+                Hero's Journey
               </button>
               <button
                 id="select_track_different"
                 onClick={() => handleTrackChange('different_but_truthful')}
                 className={`py-2 px-3 rounded-lg border text-left text-xs font-sans font-bold transition-all cursor-pointer ${
                   activeDraft.track === 'different_but_truthful'
-                    ? 'bg-gradient-to-r from-pink-500 via-purple-500 to-purple-600 text-white border-pink-500 shadow-md shadow-pink-500/10'
+                    ? 'bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 text-white border-emerald-500 shadow-md shadow-emerald-500/10'
                     : 'bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-900 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                💡 Different / Truthful (Soft-Power)
+                Quiet Leadership
               </button>
               <button
                 id="select_track_intellectual"
                 onClick={() => handleTrackChange('intellectual_journey')}
                 className={`py-2 px-3 rounded-lg border text-left text-xs font-sans font-bold transition-all cursor-pointer ${
                   activeDraft.track === 'intellectual_journey'
-                    ? 'bg-gradient-to-r from-purple-500 via-pink-500 to-teal-500 text-white border-purple-500 shadow-md shadow-purple-500/10'
+                    ? 'bg-gradient-to-r from-sky-500 via-blue-500 to-cyan-500 text-white border-sky-500 shadow-md shadow-sky-500/10'
                     : 'bg-slate-950 text-slate-400 border-slate-800 hover:bg-slate-900 hover:border-slate-700 hover:text-slate-200'
                 }`}
               >
-                🎓 Intellectual Journey (Analytical)
+                Intellectual Journey
               </button>
             </div>
-            <p className="text-[10px] text-slate-550 font-sans leading-relaxed text-slate-400">
+            <p className="text-xs text-slate-550 font-sans leading-relaxed text-slate-400">
               {activeDraft.track === 'heros_journey' && "The multi-beat Monomyth—ideal for narrative-heavy central prompts about growth, identity, or setbacks."}
               {activeDraft.track === 'different_but_truthful' && "A robust, 5-beat framework for highlighting subtle vulnerability and quiet, service-driven soft-power."}
               {activeDraft.track === 'intellectual_journey' && "The non-linear, analytical blueprint—ideal for reflective, scientific, or philosophical essays about books or paradoxical ideas."}
@@ -177,7 +191,7 @@ export default function Workbook({
 
           {/* Word Budget config */}
           <div className="space-y-2 pt-1">
-            <label className="text-[11px] font-sans font-bold text-slate-400 block font-semibold">Target Word Count Limit</label>
+            <label className="text-xs font-sans font-bold text-slate-400 block font-semibold">Target Word Count Limit</label>
             <div className="grid grid-cols-4 gap-1.5" id="target_word_limit_selector">
               {[150, 250, 500, 650].map((wCount) => (
                 <button
@@ -194,60 +208,49 @@ export default function Workbook({
                 </button>
               ))}
             </div>
-            <span className="text-[9px] text-slate-500 block text-right font-sans">Common App Standard: 650 words</span>
+            <span className="text-[11px] text-slate-500 block text-right font-sans">Common App Standard: 650 words</span>
           </div>
         </div>
 
-        {/* Study Sample Guide */}
-        <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 shadow-lg shadow-slate-950/20" id="demo_importer">
-          <div>
-            <h3 className="font-sans font-bold text-sm text-slate-100 flex items-center gap-1.5">
-              <PlayCircle className="w-4 h-4 text-teal-400" /> Tutorial Study templates
-            </h3>
-            <p className="text-[10px] text-slate-400 font-sans mt-1">
-              Struggling on how to layout? Hydrate a perfect checklist example based on Ben Dawson's archetypes to study details and edit directly!
-            </p>
+        {/* Inspiration Reference */}
+        {activeDraft.track === 'heros_journey' && (
+          <div className="bg-slate-900 border border-slate-800 rounded-xl p-5 space-y-4 shadow-lg shadow-slate-950/20">
+            <div>
+              <h3 className="font-sans font-bold text-sm text-slate-100 flex items-center gap-1.5">
+                Story Arc Inspiration
+              </h3>
+              <p className="text-xs text-slate-400 font-sans mt-1">
+                Select famous example arcs to view their detailed beats right alongside your worksheet prompts.
+              </p>
+            </div>
+            <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
+              {FAMILIAR_STORIES.map(story => (
+                <label key={story.id} className="flex items-start gap-2 p-2 rounded-lg bg-slate-950 border border-slate-800 cursor-pointer hover:bg-slate-900 transition-colors">
+                  <input 
+                    type="checkbox" 
+                    className="mt-0.5 accent-teal-500 bg-slate-900 border-slate-700 rounded"
+                    checked={selectedReferenceIds.includes(story.id)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedReferenceIds(prev => [...prev, story.id]);
+                      } else {
+                        setSelectedReferenceIds(prev => prev.filter(id => id !== story.id));
+                      }
+                    }}
+                  />
+                  <div>
+                    <div className="text-xs font-sans font-bold text-slate-200">{story.title}</div>
+                    <div className="text-[11px] text-slate-500 font-sans">{story.type}</div>
+                  </div>
+                </label>
+              ))}
+            </div>
           </div>
-
-          <div className="space-y-2" id="tutorial_seeds_box">
-            <button
-              id="seed_sample_camp"
-              onClick={() => onCloneSample('camp')}
-              className="w-full text-left py-2 px-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-lg text-[11px] font-sans text-slate-300 flex items-center justify-between transition-colors cursor-pointer"
-            >
-              <span>🔬 "Camp Counselor" Story (Hero's Journey)</span>
-              <PlusCircle className="w-3.5 h-3.5 text-teal-400" />
-            </button>
-            <button
-              id="seed_sample_coding"
-              onClick={() => onCloneSample('coding')}
-              className="w-full text-left py-2 px-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-lg text-[11px] font-sans text-slate-300 flex items-center justify-between transition-colors cursor-pointer"
-            >
-              <span>💻 "Coding Bug" Story (Hero's Journey)</span>
-              <PlusCircle className="w-3.5 h-3.5 text-cyan-400" />
-            </button>
-            <button
-              id="seed_sample_baking"
-              onClick={() => onCloneSample('baking')}
-              className="w-full text-left py-2 px-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-lg text-[11px] font-sans text-slate-300 flex items-center justify-between transition-colors cursor-pointer"
-            >
-              <span>🍰 "Burnt Birthday Cake" (Different / Truthful)</span>
-              <PlusCircle className="w-3.5 h-3.5 text-pink-400" />
-            </button>
-            <button
-              id="seed_sample_philosophy"
-              onClick={() => onCloneSample('philosophy')}
-              className="w-full text-left py-2 px-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 rounded-lg text-[11px] font-sans text-slate-300 flex items-center justify-between transition-colors cursor-pointer"
-            >
-              <span>📚 "Thermodynamics debate" (Intellectual Journey)</span>
-              <PlusCircle className="w-3.5 h-3.5 text-purple-400" />
-            </button>
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Main Column: Prompts Notebook Sheets */}
-      <div className="lg:col-span-8 space-y-6">
+      <div className="lg:col-span-9 space-y-6">
         {/* If Hero's Journey, display sub-tabs for easier grouping layout */}
         {activeDraft.track === 'heros_journey' && (
           <div className="flex bg-slate-950 border border-slate-800 p-1 rounded-xl gap-1 shadow-inner" id="heros_subtabs">
@@ -273,10 +276,25 @@ export default function Workbook({
           {currentGroupFields.map((field) => {
             const rawText = currentAnswers[field.id] || '';
             const wCount = countWords(rawText);
-            const targetSegmentBudget = Math.round(activeDraft.targetWordCount * field.suggestedWeight);
-            const isClosingIn = wCount > targetSegmentBudget * 0.9 && wCount <= targetSegmentBudget * 1.1;
-            const isExcessive = wCount > targetSegmentBudget * 1.1;
+            const hasBudget = field.suggestedWeight !== undefined && field.suggestedWeight > 0;
+            const targetSegmentBudget = hasBudget ? Math.round(activeDraft.targetWordCount * field.suggestedWeight!) : 0;
+            const isClosingIn = hasBudget && wCount > targetSegmentBudget * 0.9 && wCount <= targetSegmentBudget * 1.1;
+            const isExcessive = hasBudget && wCount > targetSegmentBudget * 1.1;
             const isGuidedFocus = focusedFieldId === field.id;
+
+            const matchedBeats = PROMPT_TO_BEATS_MAP[field.id] || [];
+            const referenceBeats = selectedReferenceIds.flatMap(refId => {
+              const story = FAMILIAR_STORIES.find(s => s.id === refId);
+              if (!story) return [];
+              return matchedBeats.map(mb => {
+                const beatDetail = (story.beats as any)[mb];
+                if (!beatDetail) return null;
+                return {
+                  storyTitle: story.title,
+                  beatText: beatDetail.text
+                };
+              }).filter(Boolean);
+            });
 
             return (
               <div 
@@ -296,9 +314,9 @@ export default function Workbook({
                   </div>
                   <div className="text-right shrink-0">
                     <span className="font-mono text-xs font-bold text-teal-400 block">
-                      {wCount} / {targetSegmentBudget} w
+                      {wCount} {hasBudget ? `/ ${targetSegmentBudget} w` : 'words'}
                     </span>
-                    <span className="text-[9px] font-sans text-slate-450 text-slate-500 block">Section Budget</span>
+                    {hasBudget && <span className="text-[11px] font-sans text-slate-450 text-slate-500 block">Section Budget</span>}
                   </div>
                 </div>
 
@@ -312,14 +330,13 @@ export default function Workbook({
                     onBlur={() => setFocusedFieldId(null)}
                     onChange={(e) => handleTextChange(field.id, e.target.value)}
                     placeholder={field.placeholder}
-                    className="w-full bg-slate-950/80 border border-slate-800 rounded-lg p-3 text-xs font-sans text-slate-100 focus:ring-1 focus:ring-teal-500 focus:border-teal-500 focus:outline-none focus:bg-slate-950 leading-relaxed placeholder:text-slate-650"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-lg p-3 text-xs font-sans text-slate-100 focus:ring-1 focus:ring-teal-500 focus:border-teal-500 focus:outline-none leading-relaxed placeholder:text-slate-500"
                   />
                 </div>
 
                 {/* Warning indications */}
                 {isExcessive && (
-                  <div className="bg-red-950/20 border border-red-900/40 rounded-lg p-2.5 text-[10px] text-red-300 font-sans flex items-start gap-1.5 leading-snug">
-                    <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-red-400" />
+                  <div className="bg-rose-950/20 border border-rose-900/40 rounded-lg p-2.5 text-xs text-rose-300 font-sans flex items-start gap-1.5 leading-snug">
                     <div>
                       <strong>A little wordy:</strong> You are over budget for this micro-beat. Consider condensing details or removing passive phrases (e.g. rewrite "I got really anxious and thought about" to "I dreaded").
                     </div>
@@ -327,8 +344,7 @@ export default function Workbook({
                 )}
 
                 {isClosingIn && (
-                  <div className="bg-teal-950/20 border border-teal-900/30 rounded-lg p-2.5 text-[10px] text-teal-300 font-sans flex items-start gap-1.5 leading-snug">
-                    <CheckCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-teal-400" />
+                  <div className="bg-teal-950/20 border border-teal-900/30 rounded-lg p-2.5 text-xs text-teal-300 font-sans flex items-start gap-1.5 leading-snug">
                     <div>
                       <strong>Perfect volume!</strong> You have entered {wCount} words which aligns smoothly with the recommended block size.
                     </div>
@@ -336,25 +352,23 @@ export default function Workbook({
                 )}
 
                 {/* In line guide checklist helpers */}
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 bg-slate-950/80 p-3.5 rounded-lg border border-slate-850/60 text-[10px] font-sans leading-relaxed text-slate-400">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 bg-slate-900 p-3.5 rounded-lg border border-slate-800 text-xs font-sans leading-relaxed text-slate-400 mt-2 shadow-sm">
                   <div className="md:col-span-8 space-y-1.5">
                     {field.tip && (
-                      <div className="flex gap-1.5 text-slate-300">
-                        <HelpCircle className="w-3.5 h-3.5 text-purple-400 shrink-0 mt-0.5" />
+                      <div className="flex gap-1.5 text-slate-100">
                         <div><strong>Pro Tip:</strong> {field.tip}</div>
                       </div>
                     )}
                     {field.pitfallWarning && (
                       <div className="flex gap-1.5 border-t border-slate-800 pt-1.5 mt-1">
-                        <AlertTriangle className="w-3.5 h-3.5 text-pink-400 shrink-0 mt-0.5" />
-                        <div className="text-pink-300 font-medium"><strong>Cliché Pitfall Warning:</strong> {field.pitfallWarning}</div>
+                        <div className="text-rose-300 font-medium"><strong>Cliché Pitfall Warning:</strong> {field.pitfallWarning}</div>
                       </div>
                     )}
                   </div>
 
                   {/* Quick Examples toggle insert */}
                   <div className="md:col-span-4 border-l md:border-l border-slate-800/80 md:pl-3 pl-0 pt-2 md:pt-0 flex flex-col justify-center">
-                    <span className="font-bold text-[9px] text-slate-500 uppercase tracking-wider block mb-1 mt-0.5">
+                    <span className="font-bold text-[11px] text-slate-500 uppercase tracking-wider block mb-1 mt-0.5">
                       Read Blueprint Examples:
                     </span>
                     <div className="space-y-1">
@@ -364,25 +378,76 @@ export default function Workbook({
                           id={`example_btn_${field.id}_${exIdx}`}
                           type="button"
                           onClick={() => handleInsertExample(field.id, ex.text)}
-                          className="w-full text-left p-1.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded text-[9px] text-slate-300 transition-colors cursor-pointer shadow hover:text-white font-medium"
-                          title="Click to write this template directly into your story text area."
+                          className="w-full text-left p-1.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 rounded text-[11px] text-slate-300 transition-colors cursor-pointer shadow hover:text-white font-medium"
+                          title="Click to write this template directly into your text area."
                         >
-                          📚 Use standard template: "{ex.title}"
+                          Use template: "{ex.title}"
                         </button>
                       ))}
                     </div>
                   </div>
                 </div>
+
+                {/* Reference Beats Display */}
+                {referenceBeats.length > 0 && (
+                  <div className="bg-slate-950 border border-slate-800 rounded-lg p-3.5 space-y-3 mt-3 shadow-inner">
+                    <span className="font-bold text-[11px] text-teal-500 uppercase tracking-wider block mb-1">
+                      Inspiration from Selected Arcs:
+                    </span>
+                    <div className="space-y-3">
+                      {referenceBeats.map((ref, idx) => (
+                        <div key={idx} className="space-y-1">
+                          <div className="text-xs font-sans font-bold text-slate-300">
+                            {ref.storyTitle}
+                          </div>
+                          <div className="text-xs text-slate-400 font-sans leading-relaxed pl-2 border-l border-slate-800">
+                            {ref.beatText}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {field.tools && field.tools.length > 0 && (
+                  <div className="pt-2">
+                    <div className="flex flex-wrap gap-2">
+                      {field.tools.map(tool => (
+                        <button
+                          key={tool}
+                          onClick={() => setActiveToolFieldId(activeToolFieldId === `${field.id}_${tool}` ? null : `${field.id}_${tool}`)}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-bold transition-all cursor-pointer ${
+                            activeToolFieldId === `${field.id}_${tool}`
+                              ? 'bg-slate-800 text-white border border-slate-700 shadow-inner'
+                              : 'bg-slate-900 border border-slate-800 text-slate-400 hover:text-slate-200'
+                          }`}
+                        >
+                          {tool === 'montage' && <Film className="w-3.5 h-3.5 text-rose-400" />}
+                          {tool === 'montage' && <span>Add a Montage</span>}
+                          {tool === 'bullet_time' && <Sparkles className="w-3.5 h-3.5 text-teal-400" />}
+                          {tool === 'bullet_time' && <span>Add a Bullet Time Moment</span>}
+                          {activeToolFieldId === `${field.id}_${tool}` ? <ChevronUp className="w-3.5 h-3.5 ml-1" /> : <ChevronDown className="w-3.5 h-3.5 ml-1" />}
+                        </button>
+                      ))}
+                    </div>
+                    {field.tools.includes('montage') && activeToolFieldId === `${field.id}_montage` && (
+                      <div className="animate-fade-in mt-4 border-t border-slate-800/80 pt-4">
+                        <MontageTool onInsert={(text) => handleTextChange(field.id, rawText ? rawText + '\n\n' + text : text)} />
+                      </div>
+                    )}
+                    {field.tools.includes('bullet_time') && activeToolFieldId === `${field.id}_bullet_time` && (
+                      <div className="animate-fade-in mt-4 border-t border-slate-800/80 pt-4">
+                        <ZoomLensTool onInsert={(text) => handleTextChange(field.id, rawText ? rawText + '\n\n' + text : text)} />
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
         </div>
       </div>
     </div>
-
-    {activeDraft.track === 'heros_journey' && (
-      <HerosJourneyCompare />
-    )}
-  </div>
-);
+    </div>
+  );
 }

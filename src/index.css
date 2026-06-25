@@ -31,15 +31,18 @@
 .light .bg-slate-950,
 .light .bg-slate-950\/40,
 .light .bg-slate-950\/50,
-.light .bg-slate-950\/60 {
+.light .bg-slate-950\/60,
+.light .bg-slate-950\/80 {
   background-color: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
   color: #0f172a !important;
 }
 
 .light .border-slate-800,
+.light .border-slate-800\/60,
 .light .border-slate-800\/80,
-.light .border-slate-850 {
+.light .border-slate-850,
+.light .border-slate-850\/60 {
   border-color: #cbd5e1 !important;
 }
 
@@ -89,17 +92,29 @@
   border-color: #cbd5e1 !important;
 }
 
+.light .text-teal-300,
 .light .text-cyan-400,
 .light .text-teal-400 {
   color: #0d9488 !important;
 }
 
-.light .text-pink-400 {
-  color: #db2777 !important;
+.light .text-sky-300,
+.light .text-sky-400 {
+  color: #0284c7 !important;
 }
 
-.light .text-purple-400 {
-  color: #7c3aed !important;
+.light .bg-sky-950\/40,
+.light .bg-sky-950\/50,
+.light .bg-sky-950\/60,
+.light .bg-sky-950\/80 {
+  background-color: #e0f2fe !important;
+  border-color: #bae6fd !important;
+}
+
+.light .border-sky-500,
+.light .border-sky-900\/50,
+.light .border-sky-900\/60 {
+  border-color: #38bdf8 !important;
 }
 
 .light .bg-gradient-to-r.from-slate-800.to-slate-850 {
@@ -108,13 +123,12 @@
 }
 
 /* Border trims & accents */
+.light .border-teal-900\/30,
 .light .border-teal-500 {
   border-color: #0d9488 !important;
 }
 
-.light .border-purple-600 {
-  border-color: #7c3aed !important;
-}
+/* removed purple borders */
 
 .light select, 
 .light select option {
@@ -149,6 +163,7 @@
   background-color: #f8fafc !important;
 }
 
+.light .bg-teal-950\/20,
 .light .bg-teal-950\/60 {
   background-color: #ccfbf1 !important;
   color: #0f766e !important;
@@ -175,6 +190,28 @@
   background-color: #ffffff !important;
   color: #1e293b !important;
   border-color: #cbd5e1 !important;
+}
+
+.light .text-rose-300,
+.light .text-rose-400,
+.light .text-rose-450,
+.light .text-rose-500 {
+  color: #b91c1c !important; /* Deep Red for warnings */
+}
+
+.light .bg-rose-950\/20,
+.light .bg-rose-950\/25,
+.light .bg-rose-950\/30,
+.light .bg-rose-950\/40,
+.light .bg-rose-955 {
+  background-color: #fee2e2 !important; /* Light red background */
+  border-color: #f87171 !important;
+}
+
+.light .border-rose-900\/30,
+.light .border-rose-900\/40,
+.light .border-rose-900\/60 {
+  border-color: #f87171 !important;
 }
 
 

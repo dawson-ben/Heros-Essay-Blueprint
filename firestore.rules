@@ -1,0 +1,41 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+
+    function isValidEssay(data, uid) {
+      return data.keys().hasAll(['userId', 'title', 'createdAt', 'updatedAt', 'schemaVersion']) &&
+             data.userId == uid &&
+             data.schemaVersion == 1 &&
+             data.title is string && data.title.size() <= 200;
+    }
+
+    match /users/{userId}/essays/{essayId} {
+      allow read: if isOwner(userId);
+      allow delete: if isOwner(userId);
+      allow create: if isOwner(userId) &&
+        isValidId(essayId) &&
+        isValidEssay(incoming(), userId) &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isOwner(userId) &&
+        isValidEssay(incoming(), userId) &&
+        incoming().updatedAt == request.time &&
+        (
+          incoming().diff(existing()).affectedKeys().hasOnly([
+            'title', 'targetWordCount', 'track', 'herosJourneyAnswers', 'differentTruthfulAnswers',
+            'intellectualJourneyAnswers', 'blocks', 'montageElements', 'scratchpad', 'updatedAt'
+          ])
+        );
+    }
+  }
+}
